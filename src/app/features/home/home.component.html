@@ -1,0 +1,26 @@
+<section>
+  <div class="container mx-auto">
+    <h1 class="font-bold text-lg">Analytics</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
+      <div *ngFor="let card of statCards" class="bg-white rounded-lg shadow-sm py-8 px-4 flex items-center gap-4">
+        <div class="w-16 h-16 rounded-full flex items-center justify-center bg-blue-100">
+          <i [class]="card.icon + ' text-4xl text-blue-600'"></i>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-400">{{card.title}}</h3>
+          <div class="flex items-center gap-6 mt-2">
+            <span class="font-bold text-2xl">{{card.value}}</span>
+            <span *ngIf="card.change"
+              [class]="card.change.value >= 0 ? 'text-green-600 bg-green-100' : 'text-red-600 bg-red-100'"
+              class="px-2 py-1 rounded-full text-sm">
+              {{card.change.value}} %
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</section>

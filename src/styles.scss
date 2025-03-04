@@ -1,0 +1,11 @@
+@import url("https://m2008m1033m.s3.us-west-2.amazonaws.com/Public/fa/css/all.css");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap");
+
+* {
+  font-family: cairo, sans-serif;
+}
