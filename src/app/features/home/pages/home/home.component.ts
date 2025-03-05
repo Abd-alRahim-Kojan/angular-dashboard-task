@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ProductsService } from '../../services/products.service';
+import { productsModel } from '../../models/products.model';
 
 interface StatCard {
   title: string;
@@ -13,8 +15,8 @@ interface StatCard {
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
-export class HomeComponent {
-  statCards: StatCard[] = [
+export class HomeComponent implements OnInit {
+  public statCards: StatCard[] = [
     {
       title: 'Total Revenue',
       value: '$52.6k',
@@ -42,4 +44,15 @@ export class HomeComponent {
       icon: 'fas fa-users'
     }
   ];
+  public productsData: productsModel[] = [];
+
+
+  constructor(private ProductsService: ProductsService) { }
+
+  ngOnInit(): void {
+    this.ProductsService.getAllProducts().subscribe((data) => {
+      this.productsData = data;
+    });
+  }
+
 }

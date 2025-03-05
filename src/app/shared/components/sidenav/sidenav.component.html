@@ -1,8 +1,17 @@
-<div class="flex h-screen absolute z-50">
-  <div class="w-64 bg-white text-gray-800 shadow-md">
+<button class="md:block lg:hidden outline-none absolute top-4 z-50"
+  [ngClass]="{'left-56': isMenuOpen, 'left-4': !isMenuOpen}" (click)="toggleMenu()">
+  <i class="transition-all text-blue-600" [ngClass]="
+          isMenuOpen
+            ? 'fa-solid fa-xmark fa-xl'
+            : 'fa-solid fa-bars fa-lg'
+        "></i>
+</button>
 
-    <div class="p-8">
-      <a [routerLink]="['']" routerLinkActive="font-bold" class="flex items-center gap-3 md:pl-24 lg:pl-0">
+<div class="absolute flex h-screen" [ngClass]="{'translate-x-0': isMenuOpen, '-translate-x-full': !isMenuOpen}">
+  <div class="w-64 text-gray-800 bg-white shadow-md">
+
+    <div class="py-8 px-12">
+      <a [routerLink]="['']" routerLinkActive="font-bold" class="flex items-center gap-3">
 
         <svg width="40" height="40" viewBox="0 0 70 40" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -19,71 +28,25 @@
     </div>
 
     <!-- Navigation Links -->
-    <nav class="mt-4 flex flex-col gap-2 px-9">
-      <a routerLink="/dashboard" routerLinkActive="font-bold text-blue-600 bg-blue-100"
-        class="block px-4 py-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition-colors">
+    <nav class="flex flex-col gap-2 mt-4 px-9">
+      <a *ngFor="let item of navigationItems" [routerLink]="item.path" routerLinkActive="active"
+        class="px-4 py-2 transition-colors rounded-md font-semibold text-gray-400 hover:bg-blue-100 hover:text-blue-600">
         <div class="flex items-center">
-          <i class="fa-regular fa-house mr-3"></i>
-          <span>Dashboard</span>
-        </div>
-      </a>
-
-      <a routerLink="/orders" routerLinkActive="font-bold text-blue-600 bg-blue-100"
-        class="block px-4 py-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition-colors">
-        <div class="flex items-center">
-          <i class="fa-regular fa-cart-shopping mr-3"></i>
-          <span>Orders</span>
-        </div>
-      </a>
-
-      <a href="#" class="block px-4 py-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition-colors">
-        <div class="flex items-center">
-          <i class="fa-light fa-users mr-3"></i>
-          <span>Users</span>
-        </div>
-      </a>
-
-      <a href="#" class="block px-4 py-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition-colors">
-        <div class="flex items-center">
-          <i class="fa-regular fa-store mr-3"></i>
-          <span>Items</span>
-        </div>
-      </a>
-
-      <a href="#" class="block px-4 py-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition-colors">
-        <div class="flex items-center">
-          <i class="fa-regular fa-arrows-rotate mr-3"></i>
-          <span>Tranactions</span>
-        </div>
-      </a>
-
-      <a href="#" class="block px-4 py-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition-colors">
-        <div class="flex items-center">
-          <i class="fa-regular fa-file-chart-column mr-3"></i>
-          <span>Reports</span>
+          <i class="mr-3" [class]="item.icon"></i>
+          <span>{{item.label}}</span>
         </div>
       </a>
 
       <hr class="my-2 border-gray-300">
 
-      <a href="#" class="block px-4 py-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition-colors">
+      <a *ngFor="let item of bottomNavItems" [routerLink]="item.path" routerLinkActive="active"
+        class="px-4 py-2 transition-colors rounded-md font-semibold text-gray-400 hover:bg-blue-100 hover:text-blue-600">
         <div class="flex items-center">
-          <i class="fa-regular fa-comment mr-3"></i>
-          <span>Messages</span>
-        </div>
-      </a>
-
-      <a href="#" class="block px-4 py-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition-colors">
-        <div class="flex items-center">
-          <i class="fa-regular fa-headset mr-3"></i>
-          <span>Support</span>
-        </div>
-      </a>
-
-      <a href="#" class="block px-4 py-2 rounded-md hover:bg-blue-100 hover:text-blue-600 transition-colors">
-        <div class="flex items-center">
-          <i class="fa-regular fa-cog mr-3"></i>
-          <span>Settings</span>
+          <div class="relative">
+            <i class="mr-3" [class]="item.icon"></i>
+            <div *ngIf="item.hasNotification" class="absolute top-1 -right-32 w-4 h-4 bg-red-500 rounded-full"></div>
+          </div>
+          <span>{{item.label}}</span>
         </div>
       </a>
     </nav>

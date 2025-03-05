@@ -1,0 +1,83 @@
+<section>
+  <div class="container mx-auto">
+    <h1 class="px-4 text-lg font-bold">Analytics</h1>
+
+    <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+      <div *ngFor="let card of statCards" class="flex items-center gap-4 px-4 py-8 bg-white rounded-lg shadow-sm">
+        <div class="flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full">
+          <i [class]="card.icon + ' text-4xl text-blue-600'"></i>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-400">{{card.title}}</h3>
+          <div class="flex items-center gap-6 mt-2">
+            <span class="text-2xl font-bold">{{card.value}}</span>
+            <span *ngIf="card.change"
+              [class]="card.change.value >= 0 ? 'text-green-600 bg-green-100' : 'text-red-600 bg-red-100'"
+              class="px-2 py-1 text-sm rounded-full">
+              {{card.change.value}} %
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 mx-4 lg:grid-cols-2 xl:grid-cols-4">
+      <div class="col-span-1 p-4 bg-white rounded-lg shadow-sm xl:col-span-3">
+        <app-sales-chart></app-sales-chart>
+      </div>
+      <div class="col-span-1 p-4 bg-white rounded-lg shadow-sm xl:col-span-1">
+        <app-visits-chart></app-visits-chart>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between p-4">
+      <h1 class="mt-8 text-lg font-bold">Recent Orders</h1>
+      <a href="/orders" class="text-gray-400">Go to Orders Page
+        <i class="ms-3 fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <div class="w-full overflow-scroll bg-white rounded-lg shadow-md">
+      <table class="w-[calc(100%-1.5rem)] m-3">
+        <thead>
+          <tr class="bg-slate-100 rounded-2xl">
+            <th class="px-4 py-6 text-xs font-medium tracking-wider text-left text-gray-600 uppercase">Image</th>
+            <th class="px-4 py-6 text-xs font-medium tracking-wider text-left text-gray-600 uppercase">Title</th>
+            <th class="px-4 py-6 text-xs font-medium tracking-wider text-left text-gray-600 uppercase">Category</th>
+            <th class="px-4 py-6 text-xs font-medium tracking-wider text-left text-gray-600 uppercase">Price</th>
+            <th class="px-4 py-6 text-xs font-medium tracking-wider text-left text-gray-600 uppercase">Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of productsData" class="transition-colors hover:bg-gray-50">
+            <td class="px-4 py-4">
+              <img [src]="product.image" alt="{{ product.title }}" class="object-contain w-16 h-16 rounded">
+            </td>
+            <td class="px-4 py-4">
+              <div class="text-sm font-medium text-gray-900">{{ product.title }}</div>
+              <div class="max-w-xs text-sm text-gray-500 truncate">
+                {{ product.description }}
+              </div>
+            </td>
+            <td class="px-4 py-4 text-sm text-gray-500">
+              {{ product.category }}
+            </td>
+            <td class="px-4 py-4 text-sm font-semibold text-gray-900">
+              ${{ product.price.toFixed(2) }}
+            </td>
+            <td class="px-4 py-4">
+              <div class="flex items-center">
+                <span class="mr-2 text-sm text-yellow-500">
+                  ★ {{ product.rating.rate.toFixed(1) }}
+                </span>
+                <span class="text-xs text-gray-500">
+                  ({{ product.rating.count }} reviews)
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
